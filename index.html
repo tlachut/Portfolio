@@ -8,127 +8,127 @@
 <body>
     <p>
         BAZA LOTY 
-
+<br /><br />
 1 Wyświetl pasażerów z Wałbrzycha 
-
+<br />
 SELECT * FROM `pasazerowie` WHERE `miejscowosc` = "Walbrzych"; 
 
- 
-
+ <br />
+<br />
 2 Wyświetl pasażerów z Jawora 
-
+<br />
 SELECT * FROM `pasazerowie` WHERE `miejscowosc` = "Jawor"; 
 
- 
-
+ <br />
+<br />
  
 
 3 Wyświetl ilość pasażerów z każdej miejscowości /nazwa miejscowosci, ilość/ 
-
+<br />
 SELECT `miejscowosc`, COUNT(`id_pasazera`) AS IloscPasazerow FROM `pasazerowie` GROUP BY `miejscowosc`; 
-
+<br />
  
-
+<br />
 4 Wyświetl ile razy imię występuje w bazie 
-
+<br />
 SELECT `imie`, COUNT(`id_pasazera`) AS IloscImieniaWBazie FROM `pasazerowie` GROUP BY `imie`; 
 
- 
-
+ <br />
+<br />
  
 
 5 Wyświetl osoby o imieniu Agnieszka 
-
+<br />
 SELECT * FROM `pasazerowie` WHERE `imie` = "Agnieszka"; 
-
+<br />
  
-
+<br />
 6 Wyświetl osoby o imieniu rozpoczynającym się literką A 
-
+<br />
 SELECT * FROM `pasazerowie` WHERE `imie` LIKE "A%"; 
 
- 
+ <br />
 
  
-
+<br />
 7 Wyświetl osoby z numerem telefonu zaczynającym się 2 
-
+<br />
 SELECT * FROM `pasazerowie` WHERE `tel` LIKE "2%"; 
 
- 
-
+ <br />
+<br />
 8 Wyświetl 2 najpopularniejsze imiona pasażerów na literkę m 
-
+<br />
 SELECT `imie`, COUNT(`id_pasazera`) AS IloscImieniaWBazie FROM `pasazerowie` WHERE `imie` LIKE "M%" GROUP BY `imie` ORDER BY IloscImieniaWBazie DESC LIMIT 2; 
-
+<br />
  
-
+<br />
  
 
 9 Ile lotów odbyło się do każdej z miejscowości /spis alfabetyczny/ 
-
+<br />
 SELECT `miejsce_docelowe`, COUNT(`id_lotu`) AS IloscLotow FROM `loty` GROUP BY `miejsce_docelowe` ORDER BY `miejsce_docelowe`; 
-
- 
+<br />
+ <br />
 
 10 Który pasażer odbył najwiecej lotów i ile 
-
+<br />
 SELECT pasazerowie.id_pasazera, pasazerowie.nazwisko, pasazerowie.imie, COUNT(loty.id_lotu) AS IloscLotow FROM bilety, loty, pasazerowie WHERE pasazerowie.id_pasazera = bilety.id_pasazera AND loty.id_lotu = bilety.id_lotu GROUP BY pasazerowie.id_pasazera ORDER BY IloscLotow DESC LIMIT 1; 
 
- 
-
+ <br />
+<br />
  
 
 11 wyświetl loty pasażera o numerze 283 
-
+<br />
 SELECT loty.id_lotu, loty.miejsce_docelowe, loty.data, loty.godzina FROM loty, bilety, pasazerowie WHERE pasazerowie.id_pasazera = 283 AND bilety.id_lotu = loty.id_lotu AND bilety.id_pasazera = pasazerowie.id_pasazera; 
 
- 
-
+ <br />
+<br />
 12 Wyświetl nazwisko, imię i numer pasażera któy odbył najwięcej lotów 
-
+<br />
 SELECT pasazerowie.nazwisko, pasazerowie.imie, pasazerowie.id_pasazera FROM bilety, loty, pasazerowie WHERE pasazerowie.id_pasazera = bilety.id_pasazera AND loty.id_lotu = bilety.id_lotu GROUP BY pasazerowie.id_pasazera ORDER BY COUNT(loty.id_lotu) DESC LIMIT 1; 
 
- 
-
+ <br />
+<br />
 13 Kto najczęściej latał do Barcelony (ile razy) 
-
+<br />
 SELECT pasazerowie.id_pasazera, pasazerowie.nazwisko, pasazerowie.imie, COUNT(loty.id_lotu) AS IloscLotow FROM bilety, loty, pasazerowie WHERE loty.miejsce_docelowe = "Barcelona" AND pasazerowie.id_pasazera = bilety.id_pasazera AND loty.id_lotu = bilety.id_lotu GROUP BY pasazerowie.id_pasazera ORDER BY IloscLotow DESC LIMIT 1; 
-
+<br />
  
-
+<br />
 14 Gdzie najczęściej latali mieszkańcy Wroclawia 
-
+<br />
 SELECT loty.miejsce_docelowe FROM loty, bilety, pasazerowie WHERE pasazerowie.miejscowosc = "Wroclaw" AND bilety.id_pasazera = pasazerowie.id_pasazera AND bilety.id_lotu = loty.id_lotu GROUP BY loty.miejsce_docelowe ORDER BY COUNT(loty.id_lotu) DESC LIMIT 1; 
-
+<br />
  
-
+<br />
 15 Wyświetl wykaz lotów pasażerów z Wrocławia do Glasgow /nr.pasażera, nr.lotu/ 
-
+<br />
 SELECT pasazerowie.id_pasazera, loty.id_lotu FROM pasazerowie, loty, bilety WHERE pasazerowie.miejscowosc = "Wroclaw" AND loty.miejsce_docelowe = "Glasgow" AND bilety.id_lotu = loty.id_lotu AND bilety.id_pasazera = pasazerowie.id_pasazera; 
-
- 
+<br />
+ <br />
 
 16 Którym lotem leciało najwięcej pasażerów (ilu) 
-
+<br />
 SELECT loty.id_lotu, COUNT(bilety.id_pasazera) AS IloscPasazerow FROM bilety, loty WHERE bilety.id_lotu = loty.id_lotu GROUP BY loty.id_lotu ORDER BY IloscPasazerow DESC LIMIT 1; 
-
- 
+<br />
+ <br />
 
 17 W którym dniu odbyło się najmniej lotów? Ile? 
-
+<br />
 SELECT loty.data, COUNT(loty.id_lotu) AS IloscLotow FROM loty GROUP BY loty.data ORDER BY IloscLotow ASC LIMIT 1; 
-
- 
+<br />
+ <br />
 
 18 W jakim dniu i do jakiej miejscowości odbyło się najwiecej lotów 
-
+<br />
 SELECT loty.data, loty.miejsce_docelowe, COUNT(loty.id_lotu) AS IloscLotow FROM loty GROUP BY loty.data, loty.miejsce_docelowe ORDER BY IloscLotow DESC LIMIT 1; 
-
+<br />
  
-
+<br />
 19* Wyświetl dni i miejscowości do których odbyło się więcej niż jeden lot dziennie 
-
+<br />
 SELECT loty.data, loty.miejsce_docelowe, COUNT(loty.id_lotu) AS IloscLotow FROM loty GROUP BY loty.data, loty.miejsce_docelowe HAVING COUNT(loty.id_lotu) > 1; 
 
  
