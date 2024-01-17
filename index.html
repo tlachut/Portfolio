@@ -1,137 +1,360 @@
 <!DOCTYPE html>
 <html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tomasz Łachut - portfolio</title>
-</head>
-<body>
-    <p>
-        BAZA LOTY 
-<br /><br />
-1 Wyświetl pasażerów z Wałbrzycha 
-<br />
-SELECT * FROM `pasazerowie` WHERE `miejscowosc` = "Walbrzych"; 
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SBD</title>
+        <script src="script.js" defer></script>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="kontener">
+            <button type="button" class="collapsible">
+                MySQL - loty 1 spr
+            </button>
+            <div class="content">
+                <h2>1. Wyświetl imiona, nazwiska i identyfikatory pasażerów</h2>
+                <p>SELECT imie, nazwisko, id_pasazera FROM `pasazerowie`;</p>
 
- <br />
-<br />
-2 Wyświetl pasażerów z Jawora 
-<br />
-SELECT * FROM `pasazerowie` WHERE `miejscowosc` = "Jawor"; 
+                <h2>
+                    2. Wyświetl identyfikator lotu i miejscowość do której się
+                    odbywał
+                </h2>
+                <p>SELECT id_lotu, miejsce_docelowe FROM `loty`;</p>
 
- <br />
-<br />
- 
+                <h2>3. Wyświetl pasażerów w kolejności alfabetycznej</h2>
+                <p>SELECT * FROM `pasazerowie` ORDER BY nazwisko, imie ASC;</p>
 
-3 Wyświetl ilość pasażerów z każdej miejscowości /nazwa miejscowosci, ilość/ 
-<br />
-SELECT `miejscowosc`, COUNT(`id_pasazera`) AS IloscPasazerow FROM `pasazerowie` GROUP BY `miejscowosc`; 
-<br />
- 
-<br />
-4 Wyświetl ile razy imię występuje w bazie 
-<br />
-SELECT `imie`, COUNT(`id_pasazera`) AS IloscImieniaWBazie FROM `pasazerowie` GROUP BY `imie`; 
+                <h2>4. Wyświetl pasażerów z Lubinia</h2>
+                <p>SELECT * FROM `pasazerowie` WHERE miejscowosc = "Lubin";</p>
 
- <br />
-<br />
- 
+                <h2>
+                    5. Wyświetl pasażerów o nazwiskach rozpoczynających się
+                    literką K
+                </h2>
+                <p>SELECT * FROM `pasazerowie` WHERE nazwisko LIKE "K%";</p>
 
-5 Wyświetl osoby o imieniu Agnieszka 
-<br />
-SELECT * FROM `pasazerowie` WHERE `imie` = "Agnieszka"; 
-<br />
- 
-<br />
-6 Wyświetl osoby o imieniu rozpoczynającym się literką A 
-<br />
-SELECT * FROM `pasazerowie` WHERE `imie` LIKE "A%"; 
+                <h2>
+                    6. Wyświetl w kolejności alfabetycznej pasażerów z Wrocławia
+                    (imię, nazwisko, nr telefonu)
+                </h2>
+                <p>
+                    SELECT imie, nazwisko, tel FROM `pasazerowie` WHERE
+                    miejscowosc = "Wroclaw" ORDER BY nazwisko, imie ASC;
+                </p>
 
- <br />
+                <h2>
+                    7. Wyświetl pasażerów z numerami telefonów rozpoczynającymi
+                    się 5
+                </h2>
+                <p>SELECT * FROM `pasazerowie` WHERE tel LIKE "5%";</p>
 
- 
-<br />
-7 Wyświetl osoby z numerem telefonu zaczynającym się 2 
-<br />
-SELECT * FROM `pasazerowie` WHERE `tel` LIKE "2%"; 
+                <h2>
+                    8. Wyświetl pasażerów z Wrocławia mieszkających na ulicy
+                    Legnickiej
+                </h2>
+                <p>
+                    SELECT * FROM `pasazerowie` WHERE miejscowosc = "Wroclaw"
+                    AND adres LIKE "Legnicka%";
+                </p>
 
- <br />
-<br />
-8 Wyświetl 2 najpopularniejsze imiona pasażerów na literkę m 
-<br />
-SELECT `imie`, COUNT(`id_pasazera`) AS IloscImieniaWBazie FROM `pasazerowie` WHERE `imie` LIKE "M%" GROUP BY `imie` ORDER BY IloscImieniaWBazie DESC LIMIT 2; 
-<br />
- 
-<br />
- 
+                <h2>
+                    9. Wyświetl pasażerów, których imię kończy się na literkę
+                    „a” (wszystkie dane)
+                </h2>
+                <p>SELECT * FROM `pasazerowie` WHERE imie LIKE "%a";</p>
 
-9 Ile lotów odbyło się do każdej z miejscowości /spis alfabetyczny/ 
-<br />
-SELECT `miejsce_docelowe`, COUNT(`id_lotu`) AS IloscLotow FROM `loty` GROUP BY `miejsce_docelowe` ORDER BY `miejsce_docelowe`; 
-<br />
- <br />
+                <h2>
+                    10. Wyświetl pasażerów których nazwiska zaczynają się na
+                    literki od A do M włącznie
+                </h2>
+                <p>
+                    SELECT * FROM `pasazerowie` WHERE nazwisko BETWEEN "A" AND
+                    "N";
+                </p>
 
-10 Który pasażer odbył najwiecej lotów i ile 
-<br />
-SELECT pasazerowie.id_pasazera, pasazerowie.nazwisko, pasazerowie.imie, COUNT(loty.id_lotu) AS IloscLotow FROM bilety, loty, pasazerowie WHERE pasazerowie.id_pasazera = bilety.id_pasazera AND loty.id_lotu = bilety.id_lotu GROUP BY pasazerowie.id_pasazera ORDER BY IloscLotow DESC LIMIT 1; 
+                <h2>
+                    11. Wyświetl pasażerów o nazwiskach składających się z 3,4,
+                    lub 5 liter
+                </h2>
+                <p>
+                    SELECT * FROM `pasazerowie` WHERE LENGTH(nazwisko) = 3 OR
+                    LENGTH(nazwisko) = 4 OR LENGTH(nazwisko) = 5;
+                </p>
 
- <br />
-<br />
- 
+                <h2>12. Wyświetl loty z maja 2014r</h2>
+                <p>SELECT * FROM `loty` WHERE data LIKE "2014-05%";</p>
 
-11 wyświetl loty pasażera o numerze 283 
-<br />
-SELECT loty.id_lotu, loty.miejsce_docelowe, loty.data, loty.godzina FROM loty, bilety, pasazerowie WHERE pasazerowie.id_pasazera = 283 AND bilety.id_lotu = loty.id_lotu AND bilety.id_pasazera = pasazerowie.id_pasazera; 
+                <h2>13. Wyświetl loty do Dortmundu</h2>
+                <p>SELECT * FROM `loty` WHERE miejsce_docelowe = "Dortmund";</p>
 
- <br />
-<br />
-12 Wyświetl nazwisko, imię i numer pasażera któy odbył najwięcej lotów 
-<br />
-SELECT pasazerowie.nazwisko, pasazerowie.imie, pasazerowie.id_pasazera FROM bilety, loty, pasazerowie WHERE pasazerowie.id_pasazera = bilety.id_pasazera AND loty.id_lotu = bilety.id_lotu GROUP BY pasazerowie.id_pasazera ORDER BY COUNT(loty.id_lotu) DESC LIMIT 1; 
+                <h2>
+                    14. Wyświetl loty pasażerów z Jeleniej Góry (dane pasażera i
+                    miejsce docelowe) (39026)
+                </h2>
+                <p>
+                    SELECT pasazerowie.id_pasazera, pasazerowie.nazwisko,
+                    pasazerowie.imie, pasazerowie.adres,
+                    pasazerowie.miejscowosc, pasazerowie.tel,
+                    loty.miejsce_docelowe FROM pasazerowie, loty, bilety WHERE
+                    pasazerowie.id_pasazera = bilety.id_pasazera AND
+                    loty.id_lotu = bilety.id_lotu AND
+                    pasazerowie.miejscowosc="Jelenia Gora";
+                </p>
 
- <br />
-<br />
-13 Kto najczęściej latał do Barcelony (ile razy) 
-<br />
-SELECT pasazerowie.id_pasazera, pasazerowie.nazwisko, pasazerowie.imie, COUNT(loty.id_lotu) AS IloscLotow FROM bilety, loty, pasazerowie WHERE loty.miejsce_docelowe = "Barcelona" AND pasazerowie.id_pasazera = bilety.id_pasazera AND loty.id_lotu = bilety.id_lotu GROUP BY pasazerowie.id_pasazera ORDER BY IloscLotow DESC LIMIT 1; 
-<br />
- 
-<br />
-14 Gdzie najczęściej latali mieszkańcy Wroclawia 
-<br />
-SELECT loty.miejsce_docelowe FROM loty, bilety, pasazerowie WHERE pasazerowie.miejscowosc = "Wroclaw" AND bilety.id_pasazera = pasazerowie.id_pasazera AND bilety.id_lotu = loty.id_lotu GROUP BY loty.miejsce_docelowe ORDER BY COUNT(loty.id_lotu) DESC LIMIT 1; 
-<br />
- 
-<br />
-15 Wyświetl wykaz lotów pasażerów z Wrocławia do Glasgow /nr.pasażera, nr.lotu/ 
-<br />
-SELECT pasazerowie.id_pasazera, loty.id_lotu FROM pasazerowie, loty, bilety WHERE pasazerowie.miejscowosc = "Wroclaw" AND loty.miejsce_docelowe = "Glasgow" AND bilety.id_lotu = loty.id_lotu AND bilety.id_pasazera = pasazerowie.id_pasazera; 
-<br />
- <br />
+                <h2>
+                    15. Kiedy odbył się pierwszy lot do Bristolu (2.o4.2014)
+                </h2>
+                <p>
+                    SELECT data FROM `loty` WHERE miejsce_docelowe = "Bristol"
+                    ORDER BY data ASC LIMIT 1;
+                </p>
 
-16 Którym lotem leciało najwięcej pasażerów (ilu) 
-<br />
-SELECT loty.id_lotu, COUNT(bilety.id_pasazera) AS IloscPasazerow FROM bilety, loty WHERE bilety.id_lotu = loty.id_lotu GROUP BY loty.id_lotu ORDER BY IloscPasazerow DESC LIMIT 1; 
-<br />
- <br />
+                <h2>16. Podaj numery lotów i dane pasażerów z Legnicy</h2>
+                <p>
+                    SELECT loty.id_lotu, pasazerowie.id_pasazera,
+                    pasazerowie.nazwisko, pasazerowie.imie, pasazerowie.adres,
+                    pasazerowie.miejscowosc, pasazerowie.tel FROM loty,
+                    pasazerowie, bilety WHERE bilety.id_lotu = loty.id_lotu AND
+                    bilety.id_pasazera = pasazerowie.id_pasazera AND
+                    pasazerowie.miejscowosc = "Legnica";
+                </p>
+            </div>
+            <button type="button" class="collapsible">Open Section 2</button>
+            <div class="content">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+            </div>
+            <button type="button" class="collapsible">Inne</button>
+            <div class="content">
+                <h2>
+                    1. lle ptaków należących do każdego gatunku zaobserwowano?
+                    Ptaków którego gatunku było najwięcej?
+                </h2>
+                <p>
+                    SELECT gatunki.nazwa_zwyczajowa, SUM(obserwacje.liczebnosc)
+                    AS suma_liczebnosci FROM obserwacje, gatunki WHERE
+                    obserwacje.ID_gatunku = gatunki.ID_gatunku GROUP BY
+                    gatunki.nazwa_zwyczajowa ORDER BY suma_liczebnosci DESC;
+                </p>
 
-17 W którym dniu odbyło się najmniej lotów? Ile? 
-<br />
-SELECT loty.data, COUNT(loty.id_lotu) AS IloscLotow FROM loty GROUP BY loty.data ORDER BY IloscLotow ASC LIMIT 1; 
-<br />
- <br />
+                <h2>
+                    2. Jakich 10 gatunków ptaków było obiektem najczęściej
+                    prowadzonych obserwacji w powiecie Gdańskim?
+                </h2>
+                <p>
+                    SELECT gatunki.nazwa_zwyczajowa, COUNT(*) AS
+                    liczba_obserwacji FROM gatunki, obserwacje, lokalizacje
+                    WHERE gatunki.ID_gatunku = obserwacje.ID_gatunku AND
+                    lokalizacje.ID_lokalizacji = obserwacje.ID_lokalizacji AND
+                    lokalizacje.powiat = 'gdanski' GROUP BY
+                    gatunki.nazwa_zwyczajowa ORDER BY liczba_obserwacji DESC
+                    LIMIT 10;
+                </p>
 
-18 W jakim dniu i do jakiej miejscowości odbyło się najwiecej lotów 
-<br />
-SELECT loty.data, loty.miejsce_docelowe, COUNT(loty.id_lotu) AS IloscLotow FROM loty GROUP BY loty.data, loty.miejsce_docelowe ORDER BY IloscLotow DESC LIMIT 1; 
-<br />
- 
-<br />
-19* Wyświetl dni i miejscowości do których odbyło się więcej niż jeden lot dziennie 
-<br />
-SELECT loty.data, loty.miejsce_docelowe, COUNT(loty.id_lotu) AS IloscLotow FROM loty GROUP BY loty.data, loty.miejsce_docelowe HAVING COUNT(loty.id_lotu) > 1; 
+                <h2>
+                    3. W którym powiecie liczba zaobserwowanych ptaków z gatunku
+                    dzięcioł (lecz tylko osobników, które żerują w lesie) jest
+                    największa, a w którym najmniejsza? (2 zapytania)
+                </h2>
+                <p>
+                    SELECT lokalizacje.powiat, SUM(obserwacje.liczebnosc) AS
+                    suma_liczebnosci FROM obserwacje, lokalizacje, gatunki WHERE
+                    obserwacje.ID_lokalizacji = lokalizacje.ID_lokalizacji AND
+                    obserwacje.ID_gatunku = gatunki.ID_gatunku AND
+                    gatunki.nazwa_zwyczajowa LIKE "dzieciol%" AND
+                    obserwacje.zachowanie = 'zeruje' AND lokalizacje.opis LIKE
+                    "%las%" GROUP BY lokalizacje.powiat ORDER BY
+                    suma_liczebnosci DESC LIMIT 1;
+                    <br /><br />
+                    SELECT lokalizacje.powiat, SUM(obserwacje.liczebnosc) AS
+                    suma_liczebnosci FROM obserwacje, lokalizacje, gatunki WHERE
+                    obserwacje.ID_lokalizacji = lokalizacje.ID_lokalizacji AND
+                    obserwacje.ID_gatunku = gatunki.ID_gatunku AND
+                    gatunki.nazwa_zwyczajowa LIKE "dzieciol%" AND
+                    obserwacje.zachowanie = 'zeruje' AND lokalizacje.opis LIKE
+                    "%las%" GROUP BY lokalizacje.powiat ORDER BY
+                    suma_liczebnosci DESC LIMIT 1;
+                </p>
 
- 
-    </p>
-</body>
+                <h2>
+                    4. Który gatunek z dzięciołowatych był najczęściej
+                    obserwowany w jednym powiecie (którym?) (lecz tylko
+                    osobników, które żerują w lesie)
+                </h2>
+                <p>
+                    SELECT gatunki.nazwa_zwyczajowa, lokalizacje.powiat,
+                    COUNT(*) AS ilosc_obserwacji FROM obserwacje, lokalizacje,
+                    gatunki WHERE obserwacje.ID_lokalizacji =
+                    lokalizacje.ID_lokalizacji AND obserwacje.ID_gatunku =
+                    gatunki.ID_gatunku AND gatunki.nazwa_zwyczajowa LIKE
+                    'dzieciol%' AND obserwacje.zachowanie = 'zeruje' AND
+                    lokalizacje.opis LIKE "%las%" GROUP BY
+                    gatunki.nazwa_zwyczajowa, lokalizacje.powiat ORDER BY
+                    ilosc_obserwacji DESC LIMIT 1;
+                </p>
+
+                <h2>
+                    5. Podaj nazwy zwyczajowe trzech gatunków ptaków, które były
+                    obiektem największej ilości obserwacji.
+                </h2>
+                <p>
+                    SELECT gatunki.nazwa_zwyczajowa, COUNT(*) AS
+                    liczba_obserwacji FROM gatunki, obserwacje WHERE
+                    gatunki.ID_gatunku = obserwacje.ID_gatunku GROUP BY
+                    gatunki.nazwa_zwyczajowa ORDER BY liczba_obserwacji DESC
+                    LIMIT 3;
+                </p>
+
+                <h2>
+                    6. Podaj 3 miesiące (numery miesiąca), w których było
+                    najwięcej obserwowanych ptaków oraz ich ilość.
+                </h2>
+                <p>
+                    SELECT MONTH(obserwacje.poczatek) AS miesiac,
+                    SUM(obserwacje.liczebnosc) AS liczbaObserwowanychPtakow FROM
+                    obserwacje GROUP BY miesiac ORDER BY
+                    liczba_obserwowanych_ptakow DESC LIMIT 3;
+                </p>
+
+                <h2>
+                    7. Podaj 3 miesiące (numery miesiąca), w których było
+                    najmniej prowadzanych obserwacji oraz podaj ich ilość.
+                </h2>
+                <p>
+                    SELECT MONTH(obserwacje.poczatek) AS miesiac, COUNT(*) AS
+                    liczbaObserwacji FROM obserwacje GROUP BY miesiac ORDER BY
+                    liczbaObserwacji ASC LIMIT 3;
+                </p>
+
+                <h2>
+                    8. Podaj 5 najmniej popularnych lokalizacji (nazwa
+                    lokalizacji).
+                </h2>
+                <p>
+                    SELECT lokalizacje.lokalizacja, COUNT(*) AS ilosc_obserwacji
+                    FROM obserwacje, lokalizacje WHERE obserwacje.ID_lokalizacji
+                    = lokalizacje.ID_lokalizacji GROUP BY
+                    lokalizacje.lokalizacja ORDER BY ilosc_obserwacji ASC LIMIT
+                    5;
+                </p>
+
+                <h2>
+                    9. Podaj 10 wpisów zawierających nazwę lokalizacji i nazwę
+                    zwyczajową najczęściej obserwowanego gatunku.
+                </h2>
+                <p>
+                    SELECT lokalizacje.lokalizacja, gatunki.nazwa_zwyczajowa,
+                    COUNT(*) AS liczba_obserwacji FROM lokalizacje, obserwacje,
+                    gatunki WHERE lokalizacje.ID_lokalizacji =
+                    obserwacje.ID_lokalizacji AND gatunki.ID_gatunku =
+                    obserwacje.ID_gatunku GROUP BY lokalizacje.lokalizacja,
+                    gatunki.nazwa_zwyczajowa ORDER BY liczba_obserwacji DESC
+                    LIMIT 10;
+                </p>
+
+                <h2>
+                    10. Podaj 3 lokalizacje, gdzie najczęściej obserwowano kruka
+                    (ilość obserwacji a nie ilość ptaków).
+                </h2>
+                <p>
+                    SELECT lokalizacje.lokalizacja, COUNT(*) AS
+                    liczba_obserwacji FROM lokalizacje, obserwacje, gatunki
+                    WHERE lokalizacje.ID_lokalizacji = obserwacje.ID_lokalizacji
+                    AND gatunki.ID_gatunku = obserwacje.ID_gatunku AND
+                    gatunki.nazwa_zwyczajowa = 'kruk' GROUP BY
+                    lokalizacje.lokalizacja ORDER BY liczba_obserwacji DESC
+                    LIMIT 3;
+                </p>
+
+                <h2>
+                    11. Wyświetl malejąco łączny czas obserwacji różnych
+                    zachowań.
+                </h2>
+                <p>
+                    SELECT zachowanie, SUM(koniec - poczatek) AS
+                    laczny_czas_obserwacji FROM obserwacje GROUP BY zachowanie
+                    ORDER BY laczny_czas_obserwacji DESC;
+                </p>
+
+                <h2>
+                    12. Wskaż dla każdej lokalizacji największą liczbę
+                    zaobserwowanych ptaków jednego gatunku podczas jednej
+                    obserwacji (powiat, nazwa lokalizacji, gatunek, liczebność)
+                    - malejąco
+                </h2>
+                <p>
+                    SELECT lokalizacje.powiat, lokalizacje.lokalizacja,
+                    gatunki.nazwa_zwyczajowa, MAX(obserwacje.liczebnosc) AS
+                    maksymalna_liczebnosc FROM obserwacje, lokalizacje, gatunki
+                    WHERE obserwacje.ID_lokalizacji = lokalizacje.ID_lokalizacji
+                    AND obserwacje.ID_gatunku = gatunki.ID_gatunku GROUP BY
+                    lokalizacje.powiat, lokalizacje.lokalizacja,
+                    gatunki.nazwa_zwyczajowa ORDER BY maksymalna_liczebnosc
+                    DESC;
+                </p>
+
+                <h2>13. Wyświetl lokalizacje w powiecie Wejherowskim.</h2>
+                <p>
+                    SELECT lokalizacja FROM lokalizacje WHERE powiat =
+                    'wejherowski';
+                </p>
+
+                <h2>
+                    14. Dodaj lokalizację Gniewino wieża w powiecie Wejherowskim
+                </h2>
+                <p>
+                    INSERT INTO lokalizacje (lokalizacja, powiat, opis) VALUES
+                    ('Gniewino wieża', 'wejherowski', '');
+                </p>
+
+                <h2>
+                    15. W bazie utwórz tabelę o nazwie obserwujący z polami ID,
+                    imie, nazwisko
+                </h2>
+                <p>
+                    CREATE TABLE obserwujacy ( ID INT PRIMARY KEY, imie
+                    VARCHAR(255) NOT NULL, nazwisko VARCHAR(255) NOT NULL );
+                </p>
+
+                <h2>16. Wprowadź przykładowe dane dla 5 obserwatorów.</h2>
+                <p>
+                    INSERT INTO obserwujący (ID, imie, nazwisko) VALUES (1,
+                    'Jan', 'Kowalski'), (2, 'Anna', 'Nowak'), (3, 'Leo',
+                    'Żmij'), (4, 'Jakub', 'Więcek'), (5, 'Kacper', 'Wolner');
+                </p>
+
+                <h2>17. W tabeli obserwacje dodaj pole obserwator.</h2>
+                <p>
+                    ALTER TABLE obserwacje ADD COLUMN obserwator VARCHAR(255);
+                </p>
+
+                <h2>18. Dla obserwacji w Rumii wstaw dane obserwatora ID</h2>
+                <p>
+                    UPDATE obserwacje SET obserwator = 1 WHERE ID_lokalizacji IN
+                    (SELECT ID_lokalizacji FROM lokalizacje WHERE lokalizacja =
+                    'Rumia');
+                </p>
+
+                <h2>
+                    19. Zmień nazwę lokalizacji Jastarnia-plaza na
+                    Jastarnia-molo.
+                </h2>
+                <p>
+                    UPDATE lokalizacje SET lokalizacja = 'Jastarnia-molo' WHERE
+                    lokalizacja = 'Jastarnia-plaza';
+                </p>
+
+                <h2>20. Usuń ze spisu gatunków bażanta złocistego.</h2>
+                <p>
+                    DELETE FROM gatunki WHERE nazwa_zwyczajowa = 'bazant
+                    zlocisty';
+                </p>
+            </div>
+        </div>
+    </body>
 </html>
